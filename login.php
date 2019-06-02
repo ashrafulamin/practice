@@ -1,26 +1,27 @@
 <?php 
 
-// var_dump($_POST);
-
-// echo $_POST["name"];
-// echo $_POST["email"];
+require('inc/connect.php');
 
 if(isset($_POST["username"]) && isset($_POST["password"])){
 
 	$username = $_POST["username"];
 	$password = $_POST["password"];
 
-	define("USERNAME", "Sterk");
-	define("PASSWORD", "tony");
+	
+	//CHECK USERNAME & PASSWORD
+	$sql = "SELECT email, password FROM users WHERE email='$username' AND password='$password'";
 
-	if($username == USERNAME && $password == PASSWORD){
-		setcookie("user_name", $username, time() + 3600, "/dashboard");
+	$result = $conn->query($sql);
+
+	//USER FOUND
+	if ($result->num_rows == 1) {
+	    setcookie("user_name", $username, time() + 3600, "/dashboard");
 		header('Location: http://localhost/dashboard/welcome.php');
 		exit;
+	} else { //USER NOT FOUND
+		header('Location: http://localhost/dashboard?invalid=1');
 	}
-	else {
-		echo 'Invalid user <a href="/dashboard">login</a>';
-	}
+	$conn->close();
 }
 else die("Invalid Request");
 ?>

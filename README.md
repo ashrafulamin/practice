@@ -12,3 +12,13 @@ Front-end (UI)
 ==
 -> Login (username & password) - User/Admin
 -> Dashboard
+
+TABLES
+==
+
+1. users
+
+id
+name
+email
+password
