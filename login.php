@@ -5,7 +5,7 @@ require('inc/connect.php');
 if(isset($_POST["username"]) && isset($_POST["password"])){
 
 	$username = $_POST["username"];
-	$password = $_POST["password"];
+	$password = md5($_POST["password"]);
 
 	
 	//CHECK USERNAME & PASSWORD

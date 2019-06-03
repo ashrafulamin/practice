@@ -1,75 +1,25 @@
+<?php require('inc/connect.php'); ?>
+<?php require('inc/functions.php'); ?>
+
 <?php
 
-date_default_timezone_set('Asia/Dhaka');
+$ip_list = get_ip_lists();
 
-$client_list_file = 'clients.txt';
+$sql = "SELECT id, name, mac_add, user_id FROM devices";
 
-if (!file_exists($client_list_file)) {
-	file_put_contents($client_list_file, "Name	MAC");
-}
+$result = $conn->query($sql);
 
-$client_list = file_get_contents($client_list_file);
-$client_list = explode("\n", $client_list);
+while ($row = $result->fetch_assoc()) {
 
-$client_list_heading = explode("	", $client_list[0]);
+	$id 		=	$row['id'];
+	$mac_add	=	$row['mac_add'];
+	$user_id	=	$row['user_id'];
+	$date		=	date("Y-m-d H:i:s", time());
 
-unset($client_list[0]);
+	$ip 		=	array_search($mac_add, $ip_list);
 
-$clients = array();
-
-foreach ($client_list as $client) {
-	$client = explode("	", $client);
-	
-	$name = $client[0];
-	$mac = preg_replace('/\s*/m', '', $client[1]);
-
-	$clients[$name] = $mac;
-}
-
-//Get the IP addresses
-ob_start();
-	system('arp -a');
-	$cmd_result = ob_get_contents();
-ob_clean();
-
-$ip_list = explode("\n", $cmd_result); //Create array for each entry
-
-unset($ip_list[0], $ip_list[1], $ip_list[2]); //Remove unecessary values
-
-
-//Process each entry
-foreach ($ip_list as $value) {
-	//Remove extra blank spaces & explode by single space
-	$value = explode(" ", preg_replace('/\s+/', ' ', trim($value)));
-
-	//Check if the exploded entry has a mac address
-	if(isset($value[1])){
-
-		$ip = $value[0];
-		$mac = strtoupper($value[1]); //Uppercase all mac addresses
-
-		$ip_list_new[$ip] = $mac;
+	if(is_device_online($ip)){
+		$conn->query("UPDATE devices SET last_seen = '$date' WHERE id = '$id'");
 	}
+	else echo $row['name'] . ': Offline <br/>';
 }
-
-var_dump($clients);
-
-//Ping each client
-foreach ($clients as $name => $mac) {
-
-	$ip = array_search($mac, $ip_list_new);
-	
-	ob_start();
-		system('ping -n 1 '.$ip);
-		$cmd_result = ob_get_contents();
-	ob_clean();
-
-	if (strpos($cmd_result, 'Received = 1') != FALSE) {
-		$clients[$name] = 'Online';
-	}
-	else {
-		$clients[$name] = 'Offline';
-	}
-}
-
-var_dump($clients);
