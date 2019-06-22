@@ -1,5 +1,22 @@
 <?php
 
+function get_user($email){
+	global $conn;
+
+	$sql = "SELECT id, name, email FROM users WHERE email = '$email' LIMIT 0,1";
+	$result = $conn->query($sql);
+
+	if($result)
+		return $result->fetch_object();
+	else return false;
+}
+
+
+function current_user(){
+	$email = $_COOKIE["user_name"];
+	return get_user($email);
+}
+
 function get_ip_lists(){
 
 	ob_start();

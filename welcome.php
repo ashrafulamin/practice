@@ -1,6 +1,7 @@
-<?php require('inc/checklogin.php') ?>
-<?php require('inc/connect.php') ?>
-<?php require('layout/header.php') ?>
+<?php require('inc/checklogin.php'); ?>
+<?php require('inc/connect.php'); ?>
+<?php require('inc/functions.php'); ?>
+<?php require('layout/header.php'); ?>
 
 <?php
 if(isset($_COOKIE["user_name"]))
@@ -10,7 +11,7 @@ else echo 'Please <a href="/dashboard">login</a>';
 
 <?php
 
-$sql = "SELECT date, in_time, out_time FROM attendance WHERE user_id = 1";
+$sql = "SELECT date, in_time, out_time FROM attendance WHERE user_id = " . current_user()->id;
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -27,7 +28,7 @@ if ($result->num_rows > 0) {
     }
     echo '</table>';
 } else {
-    echo "0 results";
+    echo '<div class="alert alert-warning" role="alert">No Record Found</div>';
 }
 
 ?>
