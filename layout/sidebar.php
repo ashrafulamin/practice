@@ -2,15 +2,35 @@
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" href="#">
+            <a class="nav-link active" href="/dashboard/welcome.php">
               <span data-feather="home"></span>
               Dashboard <span class="sr-only">(current)</span>
             </a>
           </li>
+          <?php if(is_admin()):?>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard/view_attendance.php">
+              <span data-feather="home"></span>
+              View Attendance
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard/add_user.php">
+              <span data-feather="home"></span>
+              Add User
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard/add_device.php">
+              <span data-feather="home"></span>
+              Add Device
+            </a>
+          </li>
+          <?php endif; ?>
           <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="file"></span>
-              Profile
+              My Profile
             </a>
           </li>
           <li class="nav-item">

@@ -3,7 +3,19 @@
 function get_user($email){
 	global $conn;
 
-	$sql = "SELECT id, name, email FROM users WHERE email = '$email' LIMIT 0,1";
+	$sql = "SELECT id, name, email, role FROM users WHERE email = '$email' LIMIT 0,1";
+	$result = $conn->query($sql);
+
+	if($result)
+		return $result->fetch_object();
+	else return false;
+}
+
+
+function get_user_by_id($id){
+	global $conn;
+
+	$sql = "SELECT id, name, email, role FROM users WHERE id = '$id' LIMIT 0,1";
 	$result = $conn->query($sql);
 
 	if($result)
@@ -15,6 +27,24 @@ function get_user($email){
 function current_user(){
 	$email = $_COOKIE["user_name"];
 	return get_user($email);
+}
+
+function is_admin($user_id = null){
+
+	if(!$user_id)
+		$user_id = current_user()->id;
+	
+	$user = get_user_by_id($user_id);
+
+	if($user->role == 'admin')
+		return true;
+	else return false;
+}
+
+function admin_only(){
+	if(!is_admin()){
+		header('Location: http://localhost/dashboard');
+	}
 }
 
 function get_ip_lists(){
