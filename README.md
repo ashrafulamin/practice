@@ -22,33 +22,34 @@ Phases
 
 Views
 ==
-- [x] Login (username & password) - User/Admin
-- [x] Dashboard
-- [x] Add User
-- [x] Add Device
-- [x] Edit Profile
-- [x] Leave Application
+- [x] Login (username & password) - *User/Admin*
+- [x] Dashboard - *User/Admin*
+- [x] Add User - *Admin*
+- [x] Add Device - *Admin*
+- [x] Edit Profile - *User/Admin*
+- [ ] Leave Application - *User/Admin*
+- [ ] User List - *Admin*
 
 
 Tables
 ==
 
 ###### users
-1. id (int 15, ai, primary)
-2. name (var 255)
-3. email (var 191, unique)
-4. password (var 255)
-5. role (var 10)
+1. id *(int 15, ai, primary)*
+2. name *(var 255)*
+3. email *(var 191, unique)*
+4. password *(var 255)*
+5. role *(var 10)*
 
 ###### devices
-1. id (int 15, ai, primary)
-2. name (var 255)
-3. mac_add (var 20, unique)
-4. user_id (int 255, index)
-5. last_seen (timestamp)
+1. id *(int 15, ai, primary)*
+2. name *(var 255)*
+3. mac_add *(var 20, unique)*
+4. user_id *(int 255, index)*
+5. last_seen *(timestamp)*
 
 ###### attendance
-1. date (date)
-2. user_id (int 15, index)
-3. in_time (timestamp)
-4. out_time (timestamp)
+1. date *(date)*
+2. user_id *(int 15, index)*
+3. in_time *(timestamp)*
+4. out_time *(timestamp)*
