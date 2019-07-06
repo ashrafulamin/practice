@@ -28,9 +28,9 @@
           </li>
           <?php endif; ?>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/dashboard/edit_profile.php">
               <span data-feather="file"></span>
-              My Profile
+              Edit Profile
             </a>
           </li>
           <li class="nav-item">
