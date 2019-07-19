@@ -3,8 +3,8 @@
 <?php require('inc/functions.php'); ?>
 
 <?php
-admin_only();
-$page_title = "View Attendance";
+
+$page_title = "View User";
 ?>
 
 <?php require('layout/header.php'); ?>
@@ -14,6 +14,20 @@ $page_title = "View Attendance";
 
 $error = false;
 
+if(!isset($_GET['user_id'])||!is_admin()){
+    $user = current_user();
+}
+else {
+    $user_id = (int) $_GET['user_id'];
+
+    if(get_user_by_id($user_id)){
+        $user = get_user_by_id($user_id);
+    }
+    else {
+        $error = true;
+    }
+}
+
 if(!isset($_GET['date'])){
     $date = date('Y-m-d');
 }
@@ -22,16 +36,24 @@ else {
     $date = date('Y-m-d', strtotime($date));
 }
 
-$sql = "SELECT date, user_id, in_time, out_time FROM attendance WHERE date = '$date'";
+$now    = date('Y-m-d');
+$start  = date('Y-m-01', strtotime($date));
+$end    = date('Y-m-t', strtotime($date));
+
+
+$sql = "SELECT date, user_id, in_time, out_time FROM attendance WHERE user_id = '$user->id' AND date >= '$start' AND date <= '$end'";
+
 $result = $conn->query($sql);
 
-echo "<h6><b>Date:</b> $date</h6>";
+echo "<h6><b>User:</b> $user->name</h6>";
+echo "<h6><b>Month:</b> " . date('F Y', strtotime($date)) . "</h6>";
 
-$previous = date('Y-m-d', strtotime("$date -1 day"));
-$next = date('Y-m-d', strtotime("$date +1 day"));
+$previous = date('Y-m-d', strtotime("$start -1 month"));
+$next = date('Y-m-d', strtotime("$start +1 month"));
 
-echo '<a href="view_attendance.php?date='.$previous.'"><< Previous</a> ||
-        <a href="view_attendance.php?date='.$next.'">Next>></a>';
+echo '<a href="view_user.php?user_id='.$user->id.'&date='.$previous.'"><< Previous</a> ||
+        <a href="view_user.php?user_id='.$user->id.'&date='.$now.'">Current</a> ||
+        <a href="view_user.php?user_id='.$user->id.'&date='.$next.'">Next >></a>';
 
 if ($result->num_rows > 0) {
     // output data of each row

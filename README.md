@@ -5,9 +5,9 @@ Tasks
 - [x] Update attendance after device check - [0.4](https://github.com/ashrafulamin/autoattend-practice/commit/81aa6b2aa177ba460270bc963223cae5830a4fce)
 - [x] New user & device add form - [0.5](https://github.com/ashrafulamin/autoattend-practice/commit/0d4e907388276724b361b8cc4ece82c70799140c) 
 - [x] User Profile Edit - [0.6](https://github.com/ashrafulamin/autoattend-practice/commit/400dafcdf76ddd441be6e106effac45e33eb4645)
-- [ ] Member Listing - []()
-- [ ] Attendance View by Date - []()
-- [ ] User View (Basic Info & Attendance by Month) - []()
+- [x] Users Listing - []()
+- [x] Attendance View by Date - []()
+- [x] User View (Basic Info & Attendance by Month) - []()
 
 
 Phases
@@ -28,7 +28,7 @@ Views
 - [x] Add Device - *Admin*
 - [x] Edit Profile - *User/Admin*
 - [ ] Leave Application - *User/Admin*
-- [ ] User List - *Admin*
+- [x] User List - *Admin*
 
 
 Tables

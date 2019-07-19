@@ -7,11 +7,23 @@
               Dashboard <span class="sr-only">(current)</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard/view_user.php">
+              <span data-feather="home"></span>
+              My Attendance
+            </a>
+          </li>
           <?php if(is_admin()):?>
           <li class="nav-item">
             <a class="nav-link" href="/dashboard/view_attendance.php">
               <span data-feather="home"></span>
               View Attendance
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard/users.php">
+              <span data-feather="home"></span>
+              Users
             </a>
           </li>
           <li class="nav-item">
