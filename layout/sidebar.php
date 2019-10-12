@@ -5,52 +5,60 @@
             <a class="nav-link active" href="/dashboard/welcome.php">
               <span data-feather="home"></span>
               Dashboard <span class="sr-only">(current)</span>
-            </a>
+            </a></li>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/dashboard/view_user.php">
-              <span data-feather="home"></span>
-              My Attendance
+              <span data-feather="file"></span>
+              My Attendance 
             </a>
           </li>
-          <?php if(is_admin()):?>
-          <li class="nav-item">
+          <?php if(is_admin()):  ?>
+            <li class="nav-item">
             <a class="nav-link" href="/dashboard/view_attendance.php">
-              <span data-feather="home"></span>
+              <span data-feather="file"></span>
               View Attendance
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/dashboard/users.php">
-              <span data-feather="home"></span>
-              Users
+              <span data-feather="file"></span>
+             Users
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/dashboard/add_user.php">
-              <span data-feather="home"></span>
+              <span data-feather="file"></span>
               Add User
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/dashboard/add_device.php">
-              <span data-feather="home"></span>
+              <span data-feather="file"></span>
               Add Device
-            </a>
+            </a></li>
           </li>
-          <?php endif; ?>
+        <?php endif; ?>
           <li class="nav-item">
             <a class="nav-link" href="/dashboard/edit_profile.php">
               <span data-feather="file"></span>
-              Edit Profile
+             Edit Profile
             </a>
           </li>
+          <?php if(is_admin()):  ?>     
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="shopping-cart"></span>
-              Leave Application
+            <a class="nav-link" href="/dashboard/applications_pending.php">
+              <span data-feather="file"></span>
+              Leave Applications
+            </a>
+            <?php else: ?>
+            <a class="nav-link" href="/dashboard/applications_view.php">
+              <span data-feather="file"></span>
+              Leave Applications
             </a>
           </li>
+          <?php endif; ?>
         </ul>
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
       </div>
     </nav>

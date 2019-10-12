@@ -8,6 +8,7 @@ Tasks
 - [x] Users Listing - []()
 - [x] Attendance View by Date - []()
 - [x] User View (Basic Info & Attendance by Month) - []()
+- [ ] Leave Applications - []()
 
 
 Phases
@@ -53,3 +54,12 @@ Tables
 2. user_id *(int 15, index)*
 3. in_time *(timestamp)*
 4. out_time *(timestamp)*
+
+###### leave_applications
+1. id
+2. user_id
+3. type
+4. date_start
+5. date_end
+6. desc
+7. status

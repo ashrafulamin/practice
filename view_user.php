@@ -57,21 +57,53 @@ echo '<a href="view_user.php?user_id='.$user->id.'&date='.$previous.'"><< Previo
 
 if ($result->num_rows > 0) {
     // output data of each row
-
-    echo '<table class="table">';
-    echo '<tr> <th>Date</th> <th>Name</th> <th>In Time</th> <th>Out Time</th> </tr>';
+    $attendance = array();
     while($row = $result->fetch_assoc()) {
-    	echo '<tr>';
-    	echo '<td>' . $row["date"] . '</td>';
-    	echo '<td>' . get_user_by_id($row["user_id"])->name . '</td>';
-    	echo '<td>' . date('h:i A', strtotime($row["in_time"])) . '</td>';
-    	echo '<td>' . date('h:i A', strtotime($row["out_time"])) . '</td>';
-        echo '</tr>';
+        $attendance[$row["date"]] = array(
+            'in_time'   => date('h:i A', strtotime($row["in_time"])),
+            'out_time'  => date('h:i A', strtotime($row["out_time"]))
+        );
     }
-    echo '</table>';
 } else {
     echo '<div class="alert alert-warning" role="alert">No Record Found</div>';
 }
+
+$month_days = date('t', strtotime($date));
+
+echo '<table class="table table-bordered">';
+echo '<thead><tr><th>Day</th><th>Status</th><th>In Time</th><th>Out Time</th></tr></thead>';
+
+for ($i=1; $i <= $month_days; $i++) {
+
+    $day = str_pad($i, 2, '0', STR_PAD_LEFT);
+
+    $date = date('Y-m-'.$day, strtotime($date));
+
+    if(isset($attendance[$date])){
+        $status = "Present";
+        $in_time = $attendance[$date]['in_time'];
+        $out_time = $attendance[$date]['out_time'];
+        $status_class = 'text-success';
+    }
+    elseif($date > date('Y-m-d')){
+        $status = "";
+        $in_time = '';
+        $out_time = '';
+        $status_class = '';
+    }
+    else {
+        $status = "Absent";
+        $in_time = '';
+        $out_time = '';
+        $status_class = 'text-danger';
+    }
+
+
+    echo '<tr><td width="30">'. $day .'</td> <td class="'.$status_class.'">'. $status .'</td><td>'.$in_time.'</td><td>'.$out_time.'</td></tr>';
+}
+echo '</table>';
+
+//print $month_days;
 
 ?>
 
